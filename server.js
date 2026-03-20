@@ -48,7 +48,7 @@ testConnection();
 
 // PROJECT ROUTES
 // GET /api/projects - Get all projects
-app.get('/api/projects', async (req, res) => {
+app.get('/api/projects', requireAuth, async (req, res) => {
     try {
         const projects = await Project.findAll();
         res.json(projects);
@@ -134,7 +134,6 @@ app.delete('/api/projects/:id', async (req, res) => {
 });
 
 // TASK ROUTES
-
 // GET /api/tasks - Get all tasks
 app.get('/api/tasks', async (req, res) => {
     try {
@@ -223,6 +222,7 @@ app.delete('/api/tasks/:id', async (req, res) => {
     }
 });
 
+// USER AUTHENTICATION ROUTES
 // POST /api/register - Register new user
 app.post('/api/register', async (req, res) => {
     try {
