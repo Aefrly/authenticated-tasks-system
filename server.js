@@ -19,6 +19,21 @@ app.use(session({
     }
 }));
 
+function requireAuth(req, res, next) {
+    if (req.session && req.session.userId) {
+        req.user = {
+            id: req.session.user.id,
+            name: req.session.user.name,
+            email: req.session.user.email
+        };
+        next();
+    } else {
+        res.status(401).json({ 
+            error: 'Authentication required. Please log in.' 
+        });
+    }
+}
+
 // Test database connection
 async function testConnection() {
     try {
