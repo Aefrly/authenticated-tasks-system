@@ -199,7 +199,7 @@ app.delete('/api/tasks/:id', async (req, res) => {
     }
 });
 
-// POST /api/register - Register new library patron
+// POST /api/register - Register new user
 app.post('/api/register', async (req, res) => {
     try {
         const { name, email, password } = req.body;
