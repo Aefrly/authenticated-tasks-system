@@ -1,5 +1,5 @@
 const express = require('express');
-const crypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const { db, Project, Task, User } = require('./database/setup');
 const app = express();
