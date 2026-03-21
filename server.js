@@ -1,8 +1,7 @@
 const express = require('express');
-const crypt = require('bcrypt');
+const crypt = require('bcryptjs');
 const session = require('express-session');
-const { db, Project, Task } = require('./database/setup');
-
+const { db, Project, Task, User } = require('./database/setup');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -135,7 +134,7 @@ app.delete('/api/projects/:id', async (req, res) => {
 
 // TASK ROUTES
 // GET /api/tasks - Get all tasks
-app.get('/api/tasks', async (req, res) => {
+app.get('/api/tasks', requireAuth, async (req, res) => {
     try {
         const tasks = await Task.findAll();
         res.json(tasks);
