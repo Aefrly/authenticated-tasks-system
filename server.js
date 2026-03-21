@@ -22,7 +22,7 @@ function requireAuth(req, res, next) {
     if (req.session && req.session.userId) {
         req.user = {
             id: req.session.user.id,
-            name: req.session.user.name,
+            username: req.session.user.username,
             email: req.session.user.email
         };
         next();
@@ -225,7 +225,7 @@ app.delete('/api/tasks/:id', async (req, res) => {
 // POST /api/register - Register new user
 app.post('/api/register', async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { username, email, password } = req.body;
     
         // Check if user with this email already exists
         const existingUser = await User.findOne({ where: { email } });
@@ -239,7 +239,7 @@ app.post('/api/register', async (req, res) => {
     
         // Create new user with hashed password
         const newUser = await User.create({
-            name,
+            username,
             email,
             password: hashedPassword  // Store the hash, not the original password
         });
@@ -249,7 +249,7 @@ app.post('/api/register', async (req, res) => {
             message: 'User registered successfully',
             user: {
                 id: newUser.id,
-                name: newUser.name,
+                username: newUser.username,
                 email: newUser.email
             }
         });
@@ -281,7 +281,7 @@ app.post('/api/login', async (req, res) => {
         // Create user session
         req.session.user = {
             id: user.id,
-            name: user.name,
+            username: user.username,
             email: user.email
         };
 
@@ -289,7 +289,7 @@ app.post('/api/login', async (req, res) => {
             message: 'Login successful',
             user: {
                 id: user.id,
-                name: user.name,
+                username: user.username,
                 email: user.email
             }
         });
