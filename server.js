@@ -279,6 +279,7 @@ app.post('/api/login', async (req, res) => {
 
         // Password is correct - user is authenticated
         // Create user session
+        req.session.userId = user.id;
         req.session.user = {
             id: user.id,
             username: user.username,
